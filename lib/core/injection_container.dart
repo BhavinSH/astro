@@ -1,5 +1,8 @@
 import 'package:astro/core/network/api_service.dart';
 import 'package:astro/core/network/network_info.dart';
+import 'package:astro/features/profile/data/datasources/profile_data_source.dart';
+import 'package:astro/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:astro/features/profile/domain/repositories/profile_repository.dart';
 import 'package:astro/features/question/data/datasources/question_data_source.dart';
 import 'package:astro/features/question/data/repositories/question_repository_impl.dart';
 import 'package:astro/features/question/domain/repositories/question_repository.dart';
@@ -43,5 +46,15 @@ Future<void> init() async {
   // Repository
   serviceLocator.registerLazySingleton<QuestionRepository>(
     () => QuestionRepositoryImpl(serviceLocator(), serviceLocator()),
+  );
+
+  //! Features - Profile
+  // Data sources
+  serviceLocator.registerLazySingleton<ProfileDataSource>(
+    () => ProfileDataSourceImpl(serviceLocator()),
+  );
+  // Repository
+  serviceLocator.registerLazySingleton<ProfileRepository>(
+    () => ProfileRepositoryImpl(serviceLocator(), serviceLocator()),
   );
 }
